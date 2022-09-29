@@ -1,0 +1,69 @@
+*, *::after, *::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font: 1rem "Helvetica", sans-serif;
+}
+
+$background-color: rgb(11.37%, 16.86%, 22.74%);
+$active-color: rgb(0%, 87.45%, 76.86%);
+
+body {
+  background-color: $background-color;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+
+  .input-box {
+    $padding: 10px;
+    position: relative;
+    width: 250px;
+
+    input {
+      width: 100%;
+      padding: $padding;
+      border: 1px solid rgb(100%, 100%, 100%, 25%);
+      background-color: $background-color;
+      border-radius: 5px;
+      outline: none; // TODO: this needs a better solution
+      color: rgb(100%, 100%, 100%);
+      transition: all .3s;
+
+      // If the input is valid, then the span after it is going to have these styles
+      &:is(:valid, :focus) ~ span {
+        color: $active-color;
+        background-color: $background-color;
+        font-size: .7rem;
+        padding: 0 $padding;
+        translate: 10px -7px;
+        border-left: 1px solid $active-color;
+        border-right: 1px solid $active-color;
+        letter-spacing: .2em;
+      }
+
+      &:is(:valid, :focus) {
+        border: 1px solid $active-color;
+      }
+    }
+
+    span {
+      position: absolute;
+      left: 0;
+      padding: $padding;
+      pointer-events: none;
+      color: rgb(100%, 100%, 100%, 25%);
+      text-transform: uppercase;
+      transition: all .3s;
+    }
+
+    &:last-child input:is(:valid, :focus) ~ span {
+      background-color: $active-color;
+      color: $background-color;
+      border-radius: 3px;
+    }
+  }
+}
